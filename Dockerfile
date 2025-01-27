@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . /app
 
 # build the project
-RUN mvn clean install
+RUN mvn clean package
 
 # install netcat
 RUN apt-get update && apt-get install -y netcat && apt-get clean
@@ -20,7 +20,8 @@ EXPOSE 8080
 WORKDIR /app
 
 # Copy only the compiled application files from the builder stage
-COPY --from=builder /app/target /app/target
+COPY --from=builder /app/target/lavagna-jetty-console.war /app
+COPY --from=builder /app/target/lavagna/help /app/help
 
 COPY entrypoint.sh /app/entrypoint.sh
 

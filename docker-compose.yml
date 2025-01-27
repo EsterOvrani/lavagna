@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+
   app:
     build:
       context: .
@@ -12,9 +13,12 @@ services:
       SPRING_PROFILE: dev
     depends_on:
       - db
+    volumes:
+      - my_decomantations:/app/help
     networks:
       - backend
       - frontend
+
   db:
     image: mysql:5.7
     environment:
@@ -31,9 +35,12 @@ services:
     image: nginx:latest
     ports:
       - "80:80"
+      - "8081:8081"
+
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./src/main/webapp:/usr/share/nginx/html:ro
+      - ./src/main/webapp:/usr/share/nginx/html/webapp:ro
+      - my_decomantations:/usr/share/nginx/html/help:ro
     depends_on:
       - app
     networks:
@@ -41,10 +48,10 @@ services:
 
 volumes:
   db_data:
+  my_decomantations:
 
 networks:
   backend:
     name: backend_network 
   frontend:
     name: frontend_network  
-
