@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_DIALECT: MYSQL
+      DB_URL: jdbc:mysql://db:3306/lavagna?autoReconnect=true&useSSL=false
+      DB_USER: lavagna
+      DB_PASS: lavagna_password
+      SPRING_PROFILE: dev
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: lavagna
+      MYSQL_USER: lavagna
+      MYSQL_PASSWORD: lavagna_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
