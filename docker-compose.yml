@@ -45,6 +45,5 @@ volumes:
 networks:
   backend:
     name: backend_network 
-  frontent:
     name: frontend_network  
 
