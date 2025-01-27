@@ -13,4 +13,4 @@ java -Xms64m -Xmx128m \
   -Ddatasource.username=${DB_USER} \
   -Ddatasource.password=${DB_PASS} \
   -Dspring.profiles.active=${SPRING_PROFILE} \
-  -jar /app/target/lavagna-jetty-console.war
+  -jar /app/lavagna-jetty-console.war
